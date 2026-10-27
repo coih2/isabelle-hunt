@@ -12,21 +12,24 @@ const PALETTE = [
 ]
 
 const KINDS = [
-  ...Array.from({ length: 6 }, () => 'medium'),
-  ...Array.from({ length: 5 }, () => 'large'),
-  ...Array.from({ length: 3 }, () => 'huge'),
+  ...Array.from({ length: 6 }, () => 'small'),
+  ...Array.from({ length: 5 }, () => 'medium'),
+  ...Array.from({ length: 4 }, () => 'large'),
+  ...Array.from({ length: 2 }, () => 'huge'),
 ]
 
 function radiusFor(kind, minDim) {
-  if (kind === 'medium') return minDim * (0.48 + Math.random() * 0.22)
-  if (kind === 'large') return minDim * (0.78 + Math.random() * 0.28)
-  return minDim * (1.12 + Math.random() * 0.38)
+  if (kind === 'small') return minDim * (0.09 + Math.random() * 0.06)
+  if (kind === 'medium') return minDim * (0.2 + Math.random() * 0.08)
+  if (kind === 'large') return minDim * (0.34 + Math.random() * 0.1)
+  return minDim * (0.52 + Math.random() * 0.12)
 }
 
 function speedFor(kind) {
-  if (kind === 'medium') return 0.55 + Math.random() * 0.85
-  if (kind === 'large') return 0.32 + Math.random() * 0.45
-  return 0.18 + Math.random() * 0.28
+  if (kind === 'small') return 0.85 + Math.random() * 1.15
+  if (kind === 'medium') return 0.55 + Math.random() * 0.75
+  if (kind === 'large') return 0.32 + Math.random() * 0.42
+  return 0.18 + Math.random() * 0.26
 }
 
 function spawn(width, height, kind, fromEdge) {
@@ -69,10 +72,12 @@ function spawn(width, height, kind, fromEdge) {
     kind,
     z:
       kind === 'huge'
-        ? 0.08 + Math.random() * 0.18
+        ? 0.08 + Math.random() * 0.16
         : kind === 'large'
-          ? 0.28 + Math.random() * 0.28
-          : 0.58 + Math.random() * 0.4,
+          ? 0.28 + Math.random() * 0.22
+          : kind === 'medium'
+            ? 0.52 + Math.random() * 0.22
+            : 0.78 + Math.random() * 0.22,
     driftX,
     driftY,
     vx: 0,
@@ -97,7 +102,7 @@ export default function BubbleField() {
     let bubbles = []
 
     const seed = () => {
-      bubbles = KINDS.map((kind, i) => spawn(width, height, kind, i > 8))
+      bubbles = KINDS.map((kind, i) => spawn(width, height, kind, i > 10))
     }
 
     const resize = () => {
@@ -125,7 +130,8 @@ export default function BubbleField() {
       const { x: cx, y: cy, radius } = b
       const [r, g, bl] = b.pal.fill
       const [gr, gg, gb] = b.pal.glow
-      const depth = b.kind === 'huge' ? 0.62 : b.kind === 'large' ? 0.78 : 0.92
+      const depth =
+        b.kind === 'huge' ? 0.62 : b.kind === 'large' ? 0.76 : b.kind === 'medium' ? 0.88 : 1
 
       const halo = ctx.createRadialGradient(cx, cy, radius * 0.12, cx, cy, radius * 1.4)
       halo.addColorStop(0, `rgba(${r},${g},${bl},${0.4 * depth})`)
@@ -188,7 +194,8 @@ export default function BubbleField() {
           const dist = Math.hypot(dx, dy) || 1
           const falloff = Math.exp(-(dist * dist) / (2 * wake * wake))
           if (falloff > 0.02) {
-            const lightness = b.kind === 'medium' ? 0.9 : b.kind === 'large' ? 0.5 : 0.28
+            const lightness =
+              b.kind === 'small' ? 1.2 : b.kind === 'medium' ? 0.8 : b.kind === 'large' ? 0.48 : 0.28
             const impulse = falloff * Math.min(speed, 28) * lightness * 0.055
             b.vx += mouse.vx * impulse
             b.vy += mouse.vy * impulse
@@ -199,7 +206,8 @@ export default function BubbleField() {
 
         b.vx *= 0.88
         b.vy *= 0.88
-        const cap = b.kind === 'medium' ? 4.8 : b.kind === 'large' ? 3.4 : 2.2
+        const cap =
+          b.kind === 'small' ? 6.2 : b.kind === 'medium' ? 4.6 : b.kind === 'large' ? 3.2 : 2.1
         b.vx = Math.max(-cap, Math.min(cap, b.vx))
         b.vy = Math.max(-cap, Math.min(cap, b.vy))
 
