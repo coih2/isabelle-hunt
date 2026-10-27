@@ -18,9 +18,9 @@ const KINDS = [
 ]
 
 function radiusFor(kind, minDim) {
-  if (kind === 'small') return minDim * (0.028 + Math.random() * 0.038)
-  if (kind === 'medium') return minDim * (0.07 + Math.random() * 0.055)
-  return minDim * (0.13 + Math.random() * 0.08)
+  if (kind === 'small') return minDim * (0.13 + Math.random() * 0.17)
+  if (kind === 'medium') return minDim * (0.32 + Math.random() * 0.24)
+  return minDim * (0.58 + Math.random() * 0.34)
 }
 
 function speedFor(kind) {
