@@ -78,8 +78,8 @@ export default function App() {
         </a>
         <div className="nav-end">
           <nav>
-            <a href="#work">Work</a>
             <a href="#about">About</a>
+            <a href="#work">Work</a>
             <a href="#writing">Writing</a>
             <a href="#contact">Contact</a>
           </nav>
@@ -104,6 +104,65 @@ export default function App() {
             <span>Penn MSE, Data Science &amp; AI</span>
             <span>Product Space Fellow</span>
             <span>Loughborough CS &amp; Maths</span>
+          </div>
+        </section>
+
+        <section id="about" className="section about">
+          <div className="section-head">
+            <h2>About</h2>
+          </div>
+          <div className="about-grid">
+            <div className="glass about-copy">
+              <p>
+                Hi, I’m Isabelle. I grew up between Munich and Beijing, and I now live in
+                Philadelphia, where I’m studying for an MSE in Data Science and AI at the
+                University of Pennsylvania. Before that, I studied Computer Science and
+                Mathematics at Loughborough University in the UK. Growing up across languages
+                and cultures taught me to pay attention to how people from different backgrounds
+                approach the same problem, and I speak fluent German and intermediate Mandarin.
+              </p>
+              <p>
+                I’m interested in building AI that people can trust, and in deciding what is
+                worth building in the first place. For my undergraduate thesis, I built an
+                autonomous pipeline that detects and corrects ethnic bias in a clinical
+                prediction model. At Penn, I’m part of the Product Space Fellowship, where my
+                team is building an AI tool for students on campus.
+              </p>
+              <p>
+                I’m happiest when I’m organising something, working out a puzzle (I grew up in a
+                family that played a lot of board games) or training for my next marathon. You
+                can find my projects, my resume and ways to get in touch below.
+              </p>
+            </div>
+            <aside className="glass path">
+              <h3>Path</h3>
+              <ol>
+                {timeline.map((item) => (
+                  <li key={item.period}>
+                    <span className="when">{item.period}</span>
+                    <strong>{item.role}</strong>
+                    <span className="where">{item.place}</span>
+                    <span className="why">{item.note}</span>
+                  </li>
+                ))}
+              </ol>
+            </aside>
+          </div>
+
+          <div className="chips">
+            {[
+              'Customer discovery',
+              'Problem framing',
+              'Fairness & ethics',
+              'SQL · Python · R',
+              'Figma · Notion',
+              'Fluent German',
+              'Intermediate Mandarin',
+            ].map((chip) => (
+              <span className="chip" key={chip}>
+                {chip}
+              </span>
+            ))}
           </div>
         </section>
 
@@ -141,62 +200,6 @@ export default function App() {
                   </a>
                 ) : null}
               </article>
-            ))}
-          </div>
-        </section>
-
-        <section id="about" className="section about">
-          <div className="section-head">
-            <h2>About</h2>
-          </div>
-          <div className="about-grid">
-            <div className="glass about-copy">
-              <p>
-                I grew up as a builder: a specialised UK degree in computer science and maths,
-                then a year in Munich writing and checking clinical trial outputs. I liked the
-                craft. I liked even more the moments where I had to sit between technical and
-                clinical teams and make the work make sense.
-              </p>
-              <p>
-                At Penn, I finally get to study across the university — engineering next to
-                Wharton, design, and the humanities. That is not a side quest. It is how I want
-                to work as a PM: technically fluent, commercially literate, and stubborn about
-                the people on the other side of the product.
-              </p>
-              <p>
-                I am currently a Product Space Fellow, taking Venture Lab coursework in customer
-                discovery and go-to-market, and organising with SWE Advocacy and FemmeHacks
-                because the products we ship should serve a wider range of people.
-              </p>
-            </div>
-            <aside className="glass path">
-              <h3>Path</h3>
-              <ol>
-                {timeline.map((item) => (
-                  <li key={item.period}>
-                    <span className="when">{item.period}</span>
-                    <strong>{item.role}</strong>
-                    <span className="where">{item.place}</span>
-                    <span className="why">{item.note}</span>
-                  </li>
-                ))}
-              </ol>
-            </aside>
-          </div>
-
-          <div className="chips">
-            {[
-              'Customer discovery',
-              'Problem framing',
-              'Fairness & ethics',
-              'SQL · Python · R',
-              'Figma · Notion',
-              'Fluent German',
-              'Intermediate Mandarin',
-            ].map((chip) => (
-              <span className="chip" key={chip}>
-                {chip}
-              </span>
             ))}
           </div>
         </section>
